@@ -16,6 +16,7 @@ public class Util {
     private static final String USER = "webscout";
     private static final String PASSWORD = "aq1";
     private static Connection con = null;
+    private static SessionFactory sessionFactory;
 
     private Util() {
     }
@@ -43,8 +44,6 @@ public class Util {
         }
     }
 
-    // Settings for Hibernate
-    private static SessionFactory sessionFactory;
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {

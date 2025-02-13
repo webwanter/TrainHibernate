@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
@@ -31,9 +32,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Created users table");
         } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
         }
     }
@@ -49,9 +47,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction.commit();
             System.out.println("Dropped users table");
         } catch (HibernateException e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
             e.printStackTrace();
         }
     }
@@ -80,11 +75,11 @@ public class UserDaoHibernateImpl implements UserDao {
             User user = session.get(User.class, id);
             if (user != null) {
                 session.delete(user);
-                transaction.commit();
                 System.out.println("User with id " + id + " is removed");
             } else {
                 System.out.println("User with id " + id + " not found");
             }
+            transaction.commit();
         } catch (HibernateException e) {
             if (transaction != null) {
                 transaction.rollback();
@@ -99,7 +94,7 @@ public class UserDaoHibernateImpl implements UserDao {
             return session.createQuery("from User", User.class).list();
         } catch (HibernateException e) {
             e.printStackTrace();
-            return null;
+            return new ArrayList<>();
         }
     }
 
