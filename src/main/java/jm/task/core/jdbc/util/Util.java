@@ -1,6 +1,7 @@
 package jm.task.core.jdbc.util;
 
-import jm.task.core.jdbc.model.User;
+import jm.task.core.jdbc.model.Book;
+import jm.task.core.jdbc.model.Buy;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
@@ -56,11 +57,13 @@ public class Util {
                 props.put(Environment.DIALECT, "org.hibernate.dialect.MySQL8Dialect");
                 props.put(Environment.SHOW_SQL, "true");
                 props.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-                props.put(Environment.HBM2DDL_AUTO, "create-drop");
+                props.put(Environment.HBM2DDL_AUTO, "update");
 
                 Configuration config = new Configuration()
                         .setProperties(props)
-                        .addAnnotatedClass(User.class);
+                        .addAnnotatedClass(Book.class)
+                        .addAnnotatedClass(Buy.class);
+
 
                 sessionFactory = config.buildSessionFactory();
                 System.out.println("SessionFactory created");

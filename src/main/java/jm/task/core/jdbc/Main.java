@@ -1,7 +1,7 @@
 package jm.task.core.jdbc;
 
-import jm.task.core.jdbc.service.UserService;
-import jm.task.core.jdbc.service.UserServiceImpl;
+import jm.task.core.jdbc.service.BookStoreService;
+import jm.task.core.jdbc.service.BookStoreServiceImpl;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.SQLException;
@@ -10,22 +10,14 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
 
-        UserService userService = new UserServiceImpl();
+        final BookStoreService bookStoreService = new BookStoreServiceImpl();
 
-        userService.createUsersTable();
-
-        userService.saveUser("Johny", "Silverhand", (byte) 34);
-
-        userService.saveUser("Spider", "Murphy", (byte) 28);
-
-        userService.saveUser("Morgan", "Blackhand", (byte) 37);
-
-        userService.saveUser("Adam", "Smasher", (byte) 41);
-
-
-        System.out.println(userService.getAllUsers());
-
-        userService.cleanUsersTable();
+        final String testTitle = "Pale fire";
+        final Long testAuthorId = 0L;
+        final int testPrice = 500;
+        final int testAmount = 1;
+        bookStoreService.dropBookStoreTable();
+        bookStoreService.createBookStoreTable();
         Util.closeSessionFactory();
 
     }
